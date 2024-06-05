@@ -1,0 +1,11 @@
+@baseUrl = http://localhost:3000
+
+# @name ping
+GET {{baseUrl}}/ping
+Content-Type: application/json
+
+###
+
+# @name ping
+GET {{baseUrl}}/ping
+Content-Type: application/json
