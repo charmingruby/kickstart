@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
 	"os"
 
 	"github.com/charmingruby/kickstart/config"
+	"github.com/charmingruby/kickstart/pkg/postgres"
 	"github.com/joho/godotenv"
 )
 
@@ -13,13 +15,18 @@ func main() {
 	slog.SetDefault(logger)
 
 	if err := godotenv.Load(); err != nil {
-		slog.Warn(".env file not found")
+		slog.Warn("CONFIGURATION: .env file not found")
 	}
 
-	_, err := config.NewConfig()
+	cfg, err := config.NewConfig()
 	if err != nil {
-		slog.Error(err.Error())
+		slog.Error(fmt.Sprintf("CONFIGURATION: %s", err.Error()))
 		os.Exit(1)
 	}
 
+	_, err = postgres.NewPostgresConnection(cfg)
+	if err != nil {
+		slog.Error(fmt.Sprintf("DATABASE: %s", err.Error()))
+		os.Exit(1)
+	}
 }
