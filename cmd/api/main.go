@@ -5,10 +5,11 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/charmingruby/kickstart/config"
+	"github.com/charmingruby/kickstart/internal/config"
 	"github.com/charmingruby/kickstart/internal/database"
 	"github.com/charmingruby/kickstart/internal/domain/example"
 	"github.com/charmingruby/kickstart/internal/transport/rest"
+	"github.com/charmingruby/kickstart/internal/transport/rest/endpoint"
 	"github.com/charmingruby/kickstart/pkg/postgres"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
@@ -38,6 +39,7 @@ func main() {
 	initDependencies(db)
 
 	router := gin.Default()
+	endpoint.NewHandler(router).Register()
 	server := rest.NewServer(router, cfg.ServerConfig.Port)
 	if err := server.Start(); err != nil {
 		slog.Error(fmt.Sprintf("REST SERVER: %s", err.Error()))

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/charmingruby/kickstart/config"
+	"github.com/charmingruby/kickstart/internal/config"
 	"github.com/jmoiron/sqlx"
 
 	_ "github.com/lib/pq"
