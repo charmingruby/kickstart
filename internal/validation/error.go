@@ -1,12 +1,21 @@
 package validation
 
 import (
-	"errors"
 	"fmt"
 )
 
 func NewInternalErr() error {
-	return errors.New("internal error")
+	return &ErrInternal{
+		Message: "internal error",
+	}
+}
+
+type ErrInternal struct {
+	Message string `json:"message"`
+}
+
+func (e *ErrInternal) Error() string {
+	return e.Message
 }
 
 func NewNotFoundErr(entity string) error {

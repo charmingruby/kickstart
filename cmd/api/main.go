@@ -36,10 +36,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	initDependencies(db)
-
 	router := gin.Default()
-	endpoint.NewHandler(router).Register()
+
+	initDependencies(db, router)
+
 	server := rest.NewServer(router, cfg.ServerConfig.Port)
 	if err := server.Start(); err != nil {
 		slog.Error(fmt.Sprintf("REST SERVER: %s", err.Error()))
@@ -47,12 +47,14 @@ func main() {
 	}
 }
 
-func initDependencies(db *sqlx.DB) {
+func initDependencies(db *sqlx.DB, router *gin.Engine) {
 	exampleRepo, err := database.NewPostgresExampleRepository(db)
 	if err != nil {
 		slog.Error(fmt.Sprintf("DATABASE REPOSITORY: %s", err.Error()))
 		os.Exit(1)
 	}
 
-	_ = example.NewExampleService(exampleRepo)
+	exampleSvc := example.NewExampleService(exampleRepo)
+
+	endpoint.NewHandler(router, exampleSvc).Register()
 }

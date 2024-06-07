@@ -22,7 +22,7 @@ func NewExample(name string) (*Example, error) {
 }
 
 type Example struct {
-	ID        string    `json:"id" validate:"required"`
-	Name      string    `json:"name" validate:"min=3,max=16"`
-	CreatedAt time.Time `json:"created_at" validate:"required"`
+	ID        string    `json:"id" validate:"required" db:"id"`
+	Name      string    `json:"name" validate:"min=3,max=16" db:"name"`
+	CreatedAt time.Time `json:"created_at" validate:"required" db:"created_at"`
 }

@@ -1,7 +1,6 @@
 package validation
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 
@@ -21,14 +20,28 @@ func ValidateStruct(obj interface{}) error {
 	field := strings.ToLower(validationErr.StructField())
 	switch validationErr.Tag() {
 	case "required":
-		return errors.New(ErrRequired(field))
+		return NewValidationErr(ErrRequired(field))
 	case "max":
-		return errors.New(ErrMaxLength(field, validationErr.Param()))
+		return NewValidationErr(ErrMaxLength(field, validationErr.Param()))
 	case "min":
-		return errors.New(ErrMinLength(field, validationErr.Param()))
+		return NewValidationErr(ErrMinLength(field, validationErr.Param()))
 	}
 
 	return nil
+}
+
+func NewValidationErr(msg string) error {
+	return &ErrInternal{
+		Message: msg,
+	}
+}
+
+type ErrValidation struct {
+	Message string `json:"message"`
+}
+
+func (e *ErrValidation) Error() string {
+	return e.Message
 }
 
 func ErrRequired(field string) string {
