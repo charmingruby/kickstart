@@ -18,11 +18,10 @@ type Handler struct {
 }
 
 func (h *Handler) Register() {
-	api := h.router.Group("/api")
+	apiV1 := h.router.Group("/api/v1")
 	{
-		api.GET("/welcome", welcomeEndpoint)
-
-		api.POST("/examples", h.createExampleEndpoint)
-		api.GET("/examples/:id", h.getExampleEndpoint)
+		apiV1.GET("/welcome", welcomeEndpoint)
+		apiV1.POST("/examples", h.createExampleEndpoint)
+		apiV1.GET("/examples/:id", h.getExampleEndpoint)
 	}
 }

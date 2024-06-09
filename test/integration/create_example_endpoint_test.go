@@ -18,7 +18,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		body, err := json.Marshal(payload)
 		assert.NoError(s.T(), err)
 
-		res, err := http.Post(s.Route("/examples"), contentType, writeBody(body))
+		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
 		s.NoError(err)
 		s.Equal(http.StatusCreated, res.StatusCode)
 		defer res.Body.Close()
@@ -32,7 +32,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		body, err := json.Marshal(payload)
 		assert.NoError(s.T(), err)
 
-		res, err := http.Post(s.Route("/examples"), contentType, writeBody(body))
+		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
 		s.NoError(err)
 		s.Equal(http.StatusBadRequest, res.StatusCode)
 		defer res.Body.Close()

@@ -22,7 +22,7 @@ func (s *Suite) Test_GetExampleEndpoint() {
 		err = s.exampleRepo.Store(example)
 		s.NoError(err)
 
-		route := fmt.Sprintf("/examples/%s", example.ID)
+		route := fmt.Sprintf("/v1/examples/%s", example.ID)
 		res, err := http.Get(s.Route(route))
 		s.NoError(err)
 		s.Equal(http.StatusOK, res.StatusCode)
@@ -38,7 +38,7 @@ func (s *Suite) Test_GetExampleEndpoint() {
 	})
 
 	s.Run("it should be not able get an example by a nonexistent id", func() {
-		route := fmt.Sprintf("/examples/%s", "invalid_id")
+		route := fmt.Sprintf("/v1/examples/%s", "invalid_id")
 		res, err := http.Get(s.Route(route))
 		s.NoError(err)
 		s.Equal(http.StatusNotFound, res.StatusCode)
