@@ -6,12 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type createExampleRequest struct {
+type CreateExampleRequest struct {
 	Name string `json:"name" binding:"required"`
 }
 
 func (h *Handler) createExampleEndpoint(c *gin.Context) {
-	var req createExampleRequest
+	var req CreateExampleRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		newPayloadError(c, err)
 		return
@@ -27,6 +27,7 @@ func (h *Handler) createExampleEndpoint(c *gin.Context) {
 			newBadRequestError(c, validationErr)
 			return
 		}
+
 		newInternalServerError(c, err)
 		return
 	}

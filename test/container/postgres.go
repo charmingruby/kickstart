@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"log/slog"
 	"time"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -33,11 +32,7 @@ func NewPostgresTestDatabase() *TestDatabase {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*60)
 	container, db, dbAddr, err := createContainer(ctx)
 	if err != nil {
-		log.Fatal("failed to setup test", err)
-	}
-
-	if err := runMigrations(dbAddr); err != nil {
-		log.Fatal("failed to perform db migration", err)
+		log.Fatal("failed to setup container", err)
 	}
 	cancel()
 
@@ -80,7 +75,6 @@ func createContainer(ctx context.Context) (testcontainers.Container, *sqlx.DB, s
 		return container, nil, "", fmt.Errorf("failed to get container external port: %v", err)
 	}
 
-	slog.Info("postgres container ready and running at port: " + p.Port())
 	time.Sleep(time.Second)
 
 	dbAddr := fmt.Sprintf("localhost:%s", p.Port())
@@ -92,14 +86,12 @@ func createContainer(ctx context.Context) (testcontainers.Container, *sqlx.DB, s
 	return container, db, dbAddr, nil
 }
 
-func runMigrations(dbAddr string) error {
+func (tdb *TestDatabase) RunMigrations() error {
 	migrationsFolderLocation := "../../db/migrations"
 	pathToMigrate := fmt.Sprintf("file://%s", migrationsFolderLocation)
-	databaseURL := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", DBUser, DBPass, dbAddr, DBName)
+	connectionString := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", DBUser, DBPass, tdb.DBAddr, DBName)
 
-	println(pathToMigrate)
-
-	m, err := migrate.New(pathToMigrate, databaseURL)
+	m, err := migrate.New(pathToMigrate, connectionString)
 	if err != nil {
 		return err
 	}
@@ -109,7 +101,23 @@ func runMigrations(dbAddr string) error {
 		return err
 	}
 
-	slog.Info("migration done")
+	return nil
+}
+
+func (tdb *TestDatabase) RollbackMigrations() error {
+	migrationsFolderLocation := "../../db/migrations"
+	pathToMigrate := fmt.Sprintf("file://%s", migrationsFolderLocation)
+	connectionString := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", DBUser, DBPass, tdb.DBAddr, DBName)
+
+	m, err := migrate.New(pathToMigrate, connectionString)
+	if err != nil {
+		return err
+	}
+	defer m.Close()
+
+	if err := m.Down(); err != nil {
+		return err
+	}
 
 	return nil
 }
