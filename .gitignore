@@ -1,5 +1,6 @@
 # environment
 .env
 
-# bin
+# binaries
 bin
+tmp
