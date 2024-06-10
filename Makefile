@@ -45,3 +45,7 @@ run:
 .PHONY: docs
 docs:
 	swag init -g swagger.go -d ./internal -o ./docs
+
+.PHONY: build
+build:
+	CGO_ENABLED=0 GOOS=linux go build -o ./bin/kickstart ./cmd/api/main.go
