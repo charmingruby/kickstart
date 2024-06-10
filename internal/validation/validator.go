@@ -14,12 +14,8 @@ func ValidateStruct(obj interface{}) error {
 		return nil
 	}
 
-	println("oi")
-
 	validationErrs := err.(validator.ValidationErrors)
 	validationErr := validationErrs[0]
-
-	println(validationErr.Param())
 
 	field := strings.ToLower(validationErr.StructField())
 	switch validationErr.Tag() {

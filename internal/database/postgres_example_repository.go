@@ -80,7 +80,6 @@ func (r *PostgresExampleRepository) FindByID(id string) (*entity.Example, error)
 
 	var example entity.Example
 	if err := stmt.Get(&example, id); err != nil {
-		println(err.Error())
 		return nil, err
 	}
 
