@@ -2,7 +2,7 @@ package endpoint
 
 import (
 	_ "github.com/charmingruby/kickstart/docs"
-	"github.com/charmingruby/kickstart/internal/domain/example"
+	"github.com/charmingruby/kickstart/internal/domain/example/dto"
 	"github.com/charmingruby/kickstart/internal/validation"
 	"github.com/gin-gonic/gin"
 )
@@ -30,7 +30,7 @@ func (h *Handler) CreateExampleEndpoint(c *gin.Context) {
 		return
 	}
 
-	dto := example.CreateExampleDTO{
+	dto := dto.CreateExampleDTO{
 		Name: req.Name,
 	}
 

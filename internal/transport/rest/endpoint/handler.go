@@ -2,13 +2,13 @@ package endpoint
 
 import (
 	docs "github.com/charmingruby/kickstart/docs"
-	"github.com/charmingruby/kickstart/internal/domain/example"
+	"github.com/charmingruby/kickstart/internal/domain/example/usecase"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func NewHandler(router *gin.Engine, exampleService example.ExampleServiceContract) *Handler {
+func NewHandler(router *gin.Engine, exampleService usecase.ExampleServiceContract) *Handler {
 	return &Handler{
 		router:         router,
 		exampleService: exampleService,
@@ -17,7 +17,7 @@ func NewHandler(router *gin.Engine, exampleService example.ExampleServiceContrac
 
 type Handler struct {
 	router         *gin.Engine
-	exampleService example.ExampleServiceContract
+	exampleService usecase.ExampleServiceContract
 }
 
 func (h *Handler) Register() {

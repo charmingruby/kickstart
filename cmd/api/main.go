@@ -13,7 +13,7 @@ import (
 
 	"github.com/charmingruby/kickstart/internal/config"
 	"github.com/charmingruby/kickstart/internal/database"
-	"github.com/charmingruby/kickstart/internal/domain/example"
+	"github.com/charmingruby/kickstart/internal/domain/example/usecase"
 	"github.com/charmingruby/kickstart/internal/transport/rest"
 	"github.com/charmingruby/kickstart/internal/transport/rest/endpoint"
 	"github.com/charmingruby/kickstart/pkg/postgres"
@@ -21,27 +21,6 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
 )
-
-//	@title			Kickstart
-//	@version		1.0
-//	@description	This is the kickstart for new Go APIs
-
-//	@contact.name	Gustavo Dias
-//	@contact.url	https://github.com/charmingruby
-//	@contact.email	gustavodiasa2121@gmail.com
-
-//	@license.name	Apache 2.0
-//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-
-//	@host		localhost:3000
-//	@BasePath	/api/v1
-
-//	@securityDefinitions.basic	BasicAuth
-
-//	@securityDefinitions.apikey	JWT
-//	@in							header
-//	@name						Authorization
-//	@description				Description for what is this security definition being used
 
 func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
@@ -101,7 +80,7 @@ func initDependencies(db *sqlx.DB, router *gin.Engine) {
 		os.Exit(1)
 	}
 
-	exampleSvc := example.NewExampleService(exampleRepo)
+	exampleSvc := usecase.NewExampleService(exampleRepo)
 
 	endpoint.NewHandler(router, exampleSvc).Register()
 }

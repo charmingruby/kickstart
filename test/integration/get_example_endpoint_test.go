@@ -4,19 +4,19 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/charmingruby/kickstart/internal/domain/example"
+	"github.com/charmingruby/kickstart/internal/domain/example/entity"
 	"github.com/charmingruby/kickstart/internal/validation"
 )
 
 func (s *Suite) Test_GetExampleEndpoint() {
 	type getExampleResponse struct {
-		Code    int              `json:"status_code"`
-		Message string           `json:"message"`
-		Data    *example.Example `json:"data,omitempty"`
+		Code    int             `json:"status_code"`
+		Message string          `json:"message"`
+		Data    *entity.Example `json:"data,omitempty"`
 	}
 
 	s.Run("it should be able get an example by id", func() {
-		example, err := example.NewExample("Dummy Name")
+		example, err := entity.NewExample("Dummy Name")
 		s.NoError(err)
 
 		err = s.exampleRepo.Store(example)

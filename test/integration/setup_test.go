@@ -8,7 +8,8 @@ import (
 	"testing"
 
 	"github.com/charmingruby/kickstart/internal/database"
-	"github.com/charmingruby/kickstart/internal/domain/example"
+	"github.com/charmingruby/kickstart/internal/domain/example/repository"
+	"github.com/charmingruby/kickstart/internal/domain/example/usecase"
 	"github.com/charmingruby/kickstart/internal/transport/rest"
 	"github.com/charmingruby/kickstart/internal/transport/rest/endpoint"
 	"github.com/charmingruby/kickstart/test/container"
@@ -26,7 +27,7 @@ type Suite struct {
 	container   *container.TestDatabase
 	server      *httptest.Server
 	handler     *endpoint.Handler
-	exampleRepo example.ExampleRepository
+	exampleRepo repository.ExampleRepository
 }
 
 func (s *Suite) SetupSuite() {
@@ -49,7 +50,7 @@ func (s *Suite) SetupTest() {
 		os.Exit(1)
 	}
 
-	exampleSvc := example.NewExampleService(s.exampleRepo)
+	exampleSvc := usecase.NewExampleService(s.exampleRepo)
 	s.handler = endpoint.NewHandler(router, exampleSvc)
 	s.handler.Register()
 	server := rest.NewServer(router, "3000")

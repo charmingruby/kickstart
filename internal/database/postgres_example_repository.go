@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/charmingruby/kickstart/internal/domain/example"
+	"github.com/charmingruby/kickstart/internal/domain/example/entity"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -56,7 +56,7 @@ func (r *PostgresExampleRepository) statement(queryName string) (*sqlx.Stmt, err
 	return stmt, nil
 }
 
-func (r *PostgresExampleRepository) Store(e *example.Example) error {
+func (r *PostgresExampleRepository) Store(e *entity.Example) error {
 	stmt, err := r.statement(createExample)
 	if err != nil {
 		return err
@@ -72,13 +72,13 @@ func (r *PostgresExampleRepository) Store(e *example.Example) error {
 	return nil
 }
 
-func (r *PostgresExampleRepository) FindByID(id string) (*example.Example, error) {
+func (r *PostgresExampleRepository) FindByID(id string) (*entity.Example, error) {
 	stmt, err := r.statement(findExampleByID)
 	if err != nil {
 		return nil, err
 	}
 
-	var example example.Example
+	var example entity.Example
 	if err := stmt.Get(&example, id); err != nil {
 		println(err.Error())
 		return nil, err
