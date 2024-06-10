@@ -1,8 +1,11 @@
 package endpoint
 
 import (
+	docs "github.com/charmingruby/kickstart/docs"
 	"github.com/charmingruby/kickstart/internal/domain/example"
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func NewHandler(router *gin.Engine, exampleService example.ExampleServiceContract) *Handler {
@@ -18,10 +21,14 @@ type Handler struct {
 }
 
 func (h *Handler) Register() {
-	apiV1 := h.router.Group("/api/v1")
+	basePath := "/api/v1"
+	v1 := h.router.Group(basePath)
+	docs.SwaggerInfo.BasePath = basePath
 	{
-		apiV1.GET("/welcome", welcomeEndpoint)
-		apiV1.POST("/examples", h.createExampleEndpoint)
-		apiV1.GET("/examples/:id", h.getExampleEndpoint)
+		v1.GET("/welcome", welcomeEndpoint)
+		v1.POST("/examples", h.CreateExampleEndpoint)
+		v1.GET("/examples/:id", h.getExampleEndpoint)
 	}
+
+	h.router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }

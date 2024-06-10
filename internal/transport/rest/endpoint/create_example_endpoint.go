@@ -1,6 +1,7 @@
 package endpoint
 
 import (
+	_ "github.com/charmingruby/kickstart/docs"
 	"github.com/charmingruby/kickstart/internal/domain/example"
 	"github.com/charmingruby/kickstart/internal/validation"
 	"github.com/gin-gonic/gin"
@@ -10,7 +11,19 @@ type CreateExampleRequest struct {
 	Name string `json:"name" binding:"required"`
 }
 
-func (h *Handler) createExampleEndpoint(c *gin.Context) {
+// CreateExample godoc
+//
+//	@Summary		Create example
+//	@Description	Create a new example
+//	@Tags			Examples
+//	@Accept			json
+//	@Produce		json
+//	@Param			request	body		CreateExampleRequest	true	"Add Example"
+//	@Success		201		{object}	Response
+//	@Failure		400		{object}	Response
+//	@Failure		500		{object}	Response
+//	@Router			/examples [post]
+func (h *Handler) CreateExampleEndpoint(c *gin.Context) {
 	var req CreateExampleRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		newPayloadError(c, err)

@@ -7,7 +7,7 @@ import (
 )
 
 func newResponse(c *gin.Context, code int, data any, message string) {
-	res := response{
+	res := Response{
 		Message: message,
 		Data:    data,
 		Code:    code,
@@ -15,7 +15,7 @@ func newResponse(c *gin.Context, code int, data any, message string) {
 	c.JSON(code, res)
 }
 
-type response struct {
+type Response struct {
 	Message string `json:"message"`
 	Data    any    `json:"data,omitempty"`
 	Code    int    `json:"status_code"`

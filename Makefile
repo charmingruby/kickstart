@@ -41,3 +41,7 @@ docker-run:
 .PHONY: run
 run:
 	go run cmd/api/main.go
+
+.PHONY: docs
+docs:
+	swag init -g swagger.go -d ./internal -o ./docs
