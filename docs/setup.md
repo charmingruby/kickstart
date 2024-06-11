@@ -8,7 +8,7 @@
 
 ## 2 - App Name
 
-    Change names on Docker and Go module
+    Change names on Docker and Go module and Swagger definitions
 
 ## 3 - Environment
 
