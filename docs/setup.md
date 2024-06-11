@@ -6,9 +6,9 @@
     2. Initialize your own
     3. Replace all old ocurrencies with the new name
 
-## 2 - Docker
+## 2 - App Name
 
-    Change names
+    Change names on Docker and Go module
 
 ## 3 - Environment
 
