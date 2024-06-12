@@ -6,11 +6,15 @@
     2. Initialize your own
     3. Replace all old ocurrencies with the new name
 
-## 2 - App Name
+## 2 - Nomenclature
 
-    Change names on Docker and Go module and Swagger definitions
+    Change names on Docker, Go module and Swagger definitions
 
 ## 3 - Environment
 
     1. Create .env file with needed variables
     2. Change on ./config/config.go
+
+## 4 - Development
+
+    For note takings, should create a notes.md on root dir
