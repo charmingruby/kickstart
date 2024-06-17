@@ -14,23 +14,28 @@ type Suite struct {
 	exampleService *ExampleService
 }
 
+// initial setup
 func (s *Suite) SetupSuite() {
 	s.exampleRepo = inmemory.NewInMemoryExampleRepository()
 	s.exampleService = NewExampleService(s.exampleRepo)
 }
 
+// executes before each test
 func (s *Suite) SetupTest() {
 	s.exampleRepo.Items = []entity.Example{}
 }
 
+// executes after each test
 func (s *Suite) TearDownTest() {
 	s.exampleRepo.Items = []entity.Example{}
 }
 
+// executes before each sub test
 func (s *Suite) SetupSubTest() {
 	s.exampleRepo.Items = []entity.Example{}
 }
 
+// executes after each sub test
 func (s *Suite) TearDownSubTest() {
 	s.exampleRepo.Items = []entity.Example{}
 }
