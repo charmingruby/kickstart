@@ -12,10 +12,10 @@ import (
 	"time"
 
 	"github.com/charmingruby/kickstart/internal/config"
-	"github.com/charmingruby/kickstart/internal/database"
 	"github.com/charmingruby/kickstart/internal/domain/example/usecase"
-	"github.com/charmingruby/kickstart/internal/transport/rest"
-	"github.com/charmingruby/kickstart/internal/transport/rest/endpoint"
+	"github.com/charmingruby/kickstart/internal/infra/database"
+	"github.com/charmingruby/kickstart/internal/infra/transport/rest"
+	"github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint"
 	"github.com/charmingruby/kickstart/pkg/postgres"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
