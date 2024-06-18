@@ -8,12 +8,12 @@ import (
 )
 
 func ValidateStruct(obj interface{}) error {
-	err := newValidator(obj)
-	field := strings.ToLower(err.StructField())
-
-	if err == nil {
+	hasErr, err := newValidator(obj)
+	if !hasErr {
 		return nil
 	}
+
+	field := strings.ToLower(err.StructField())
 
 	switch err.Tag() {
 	case "required":
@@ -27,15 +27,15 @@ func ValidateStruct(obj interface{}) error {
 	return NewValidationErr(fmt.Sprintf("%s validation error on %s", field, err.Tag()))
 }
 
-func newValidator(obj interface{}) validator.FieldError {
+func newValidator(obj interface{}) (bool, validator.FieldError) {
 	validate := validator.New()
 	err := validate.Struct(obj)
 	if err == nil {
-		return nil
+		return false, nil
 	}
 
 	validationErrs := err.(validator.ValidationErrors)
 	validationErr := validationErrs[0]
 
-	return validationErr
+	return true, validationErr
 }

@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/charmingruby/kickstart/internal/core"
-	"github.com/stretchr/testify/assert"
 )
 
 func (s *Suite) Test_CreateExampleEndpoint() {
@@ -16,7 +15,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 	s.Run("it should be able to create an example", func() {
 		payload := createExamplePayload{Name: "Dummy name"}
 		body, err := json.Marshal(payload)
-		assert.NoError(s.T(), err)
+		s.NoError(err)
 
 		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
 		s.NoError(err)
@@ -30,7 +29,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 	s.Run("it should be not able to create an invalid example", func() {
 		payload := createExamplePayload{Name: "12"}
 		body, err := json.Marshal(payload)
-		assert.NoError(s.T(), err)
+		s.NoError(err)
 
 		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
 		s.NoError(err)

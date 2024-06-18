@@ -14,7 +14,7 @@ func NewExample(name string) (*Example, error) {
 		CreatedAt: time.Now(),
 	}
 
-	if err := e.validate(); err != nil {
+	if err := core.ValidateStruct(e); err != nil {
 		return nil, err
 	}
 
@@ -25,8 +25,4 @@ type Example struct {
 	ID        string    `json:"id" validate:"required" db:"id"`
 	Name      string    `json:"name" validate:"min=3,max=16" db:"name"`
 	CreatedAt time.Time `json:"created_at" validate:"required" db:"created_at"`
-}
-
-func (e *Example) validate() error {
-	return core.ValidateStruct(e)
 }
