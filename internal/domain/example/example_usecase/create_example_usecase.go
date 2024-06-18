@@ -13,7 +13,7 @@ func (s *ExampleService) CreateExample(dto example_dto.CreateExampleDTO) error {
 	}
 
 	if err := s.exampleRepo.Store(example); err != nil {
-		return core.NewInternalErr()
+		return core.NewInternalErr("create example store")
 	}
 
 	return nil

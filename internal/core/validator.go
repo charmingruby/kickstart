@@ -8,6 +8,26 @@ import (
 )
 
 func ValidateStruct(obj interface{}) error {
+	err := newValidator(obj)
+	field := strings.ToLower(err.StructField())
+
+	if err == nil {
+		return nil
+	}
+
+	switch err.Tag() {
+	case "required":
+		return NewValidationErr(ErrRequired(field))
+	case "max":
+		return NewValidationErr(ErrMaxLength(field, err.Param()))
+	case "min":
+		return NewValidationErr(ErrMinLength(field, err.Param()))
+	}
+
+	return NewValidationErr(fmt.Sprintf("%s validation error on %s", field, err.Tag()))
+}
+
+func newValidator(obj interface{}) validator.FieldError {
 	validate := validator.New()
 	err := validate.Struct(obj)
 	if err == nil {
@@ -17,40 +37,5 @@ func ValidateStruct(obj interface{}) error {
 	validationErrs := err.(validator.ValidationErrors)
 	validationErr := validationErrs[0]
 
-	field := strings.ToLower(validationErr.StructField())
-	switch validationErr.Tag() {
-	case "required":
-		return NewValidationErr(ErrRequired(field))
-	case "max":
-		return NewValidationErr(ErrMaxLength(field, validationErr.Param()))
-	case "min":
-		return NewValidationErr(ErrMinLength(field, validationErr.Param()))
-	}
-	return nil
-}
-
-func NewValidationErr(msg string) error {
-	return &ErrValidation{
-		Message: msg,
-	}
-}
-
-type ErrValidation struct {
-	Message string `json:"message"`
-}
-
-func (e *ErrValidation) Error() string {
-	return e.Message
-}
-
-func ErrRequired(field string) string {
-	return fmt.Sprintf("%s is required", field)
-}
-
-func ErrMinLength(field string, min string) string {
-	return fmt.Sprintf("%s must have a minimum of %s", field, min)
-}
-
-func ErrMaxLength(field string, max string) string {
-	return fmt.Sprintf("%s must have a maximum of %s", field, max)
+	return validationErr
 }

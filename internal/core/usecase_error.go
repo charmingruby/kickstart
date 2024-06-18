@@ -2,9 +2,9 @@ package core
 
 import "fmt"
 
-func NewInternalErr() error {
+func NewInternalErr(location string) error {
 	return &ErrInternal{
-		Message: "internal error",
+		Message: fmt.Sprintf("internal error on %s", location),
 	}
 }
 
