@@ -1,4 +1,4 @@
-package validation
+package core
 
 import (
 	"fmt"
@@ -26,7 +26,6 @@ func ValidateStruct(obj interface{}) error {
 	case "min":
 		return NewValidationErr(ErrMinLength(field, validationErr.Param()))
 	}
-
 	return nil
 }
 

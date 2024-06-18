@@ -1,9 +1,9 @@
-package entity
+package example_entity
 
 import (
 	"time"
 
-	"github.com/charmingruby/kickstart/internal/validation"
+	"github.com/charmingruby/kickstart/internal/core"
 	"github.com/google/uuid"
 )
 
@@ -14,7 +14,7 @@ func NewExample(name string) (*Example, error) {
 		CreatedAt: time.Now(),
 	}
 
-	if err := validation.ValidateStruct(e); err != nil {
+	if err := e.validate(); err != nil {
 		return nil, err
 	}
 
@@ -25,4 +25,8 @@ type Example struct {
 	ID        string    `json:"id" validate:"required" db:"id"`
 	Name      string    `json:"name" validate:"min=3,max=16" db:"name"`
 	CreatedAt time.Time `json:"created_at" validate:"required" db:"created_at"`
+}
+
+func (e *Example) validate() error {
+	return core.ValidateStruct(e)
 }

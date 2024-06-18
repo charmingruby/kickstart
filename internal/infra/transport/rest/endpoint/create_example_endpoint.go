@@ -2,8 +2,8 @@ package endpoint
 
 import (
 	_ "github.com/charmingruby/kickstart/docs"
-	"github.com/charmingruby/kickstart/internal/domain/example/dto"
-	"github.com/charmingruby/kickstart/internal/validation"
+	"github.com/charmingruby/kickstart/internal/core"
+	"github.com/charmingruby/kickstart/internal/domain/example/example_dto"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,23 +26,23 @@ type CreateExampleRequest struct {
 func (h *Handler) CreateExampleEndpoint(c *gin.Context) {
 	var req CreateExampleRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		newPayloadError(c, err)
+		NewPayloadError(c, err)
 		return
 	}
 
-	dto := dto.CreateExampleDTO{
+	dto := example_dto.CreateExampleDTO{
 		Name: req.Name,
 	}
 
 	if err := h.exampleService.CreateExample(dto); err != nil {
-		validationErr, ok := err.(*validation.ErrValidation)
+		validationErr, ok := err.(*core.ErrValidation)
 		if ok {
-			newBadRequestError(c, validationErr)
+			NewEntityError(c, validationErr)
 			return
 		}
 
-		newInternalServerError(c, err)
+		NewInternalServerError(c, err)
 		return
 	}
-	newCreatedResponse(c, "example")
+	NewCreatedResponse(c, "example")
 }

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/charmingruby/kickstart/internal/validation"
+	"github.com/charmingruby/kickstart/internal/core"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -34,14 +34,14 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 
 		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
 		s.NoError(err)
-		s.Equal(http.StatusBadRequest, res.StatusCode)
+		s.Equal(http.StatusUnprocessableEntity, res.StatusCode)
 		defer res.Body.Close()
 
 		data := errorResponse{}
 		err = parseRequest(&data, res.Body)
 		s.NoError(err)
 
-		s.Equal(validation.ErrMinLength("name", "3"), data.Message)
-		s.Equal(http.StatusBadRequest, data.Code)
+		s.Equal(core.ErrMinLength("name", "3"), data.Message)
+		s.Equal(http.StatusUnprocessableEntity, data.Code)
 	})
 }

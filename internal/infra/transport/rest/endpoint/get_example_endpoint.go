@@ -1,7 +1,7 @@
 package endpoint
 
 import (
-	"github.com/charmingruby/kickstart/internal/validation"
+	"github.com/charmingruby/kickstart/internal/core"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,17 +22,17 @@ func (h *Handler) getExampleEndpoint(c *gin.Context) {
 
 	example, err := h.exampleService.GetExample(exampleID)
 	if err != nil {
-		resourceNotFoundErr, ok := err.(*validation.ErrNotFound)
+		resourceNotFoundErr, ok := err.(*core.ErrNotFound)
 		if ok {
-			newResourceNotFoundError(c, resourceNotFoundErr)
+			NewResourceNotFoundError(c, resourceNotFoundErr)
 			return
 		}
 
-		newInternalServerError(c, err)
+		NewInternalServerError(c, err)
 		return
 	}
 
-	newOkResponse(
+	NewOkResponse(
 		c,
 		"example found",
 		example,

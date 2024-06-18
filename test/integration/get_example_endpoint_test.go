@@ -4,19 +4,19 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/charmingruby/kickstart/internal/domain/example/entity"
-	"github.com/charmingruby/kickstart/internal/validation"
+	"github.com/charmingruby/kickstart/internal/core"
+	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
 )
 
 func (s *Suite) Test_GetExampleEndpoint() {
 	type getExampleResponse struct {
-		Code    int             `json:"status_code"`
-		Message string          `json:"message"`
-		Data    *entity.Example `json:"data,omitempty"`
+		Code    int                     `json:"status_code"`
+		Message string                  `json:"message"`
+		Data    *example_entity.Example `json:"data,omitempty"`
 	}
 
 	s.Run("it should be able get an example by id", func() {
-		example, err := entity.NewExample("Dummy Name")
+		example, err := example_entity.NewExample("Dummy Name")
 		s.NoError(err)
 
 		err = s.exampleRepo.Store(example)
@@ -48,7 +48,7 @@ func (s *Suite) Test_GetExampleEndpoint() {
 		err = parseRequest(&data, res.Body)
 		s.NoError(err)
 
-		s.Equal(validation.NewNotFoundErr("example").Error(), data.Message)
+		s.Equal(core.NewNotFoundErr("example").Error(), data.Message)
 		s.Equal(http.StatusNotFound, data.Code)
 	})
 }

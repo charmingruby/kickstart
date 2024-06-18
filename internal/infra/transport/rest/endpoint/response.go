@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func newResponse(c *gin.Context, code int, data any, message string) {
+func NewResponse(c *gin.Context, code int, data any, message string) {
 	res := Response{
 		Message: message,
 		Data:    data,
@@ -21,27 +21,31 @@ type Response struct {
 	Code    int    `json:"status_code"`
 }
 
-func newCreatedResponse(c *gin.Context, entity string) {
+func NewCreatedResponse(c *gin.Context, entity string) {
 	msg := entity + " created successfully"
-	newResponse(c, http.StatusCreated, nil, msg)
+	NewResponse(c, http.StatusCreated, nil, msg)
 }
 
-func newOkResponse(c *gin.Context, msg string, data any) {
-	newResponse(c, http.StatusOK, data, msg)
+func NewOkResponse(c *gin.Context, msg string, data any) {
+	NewResponse(c, http.StatusOK, data, msg)
 }
 
-func newPayloadError(c *gin.Context, err error) {
-	newResponse(c, http.StatusBadRequest, nil, "Payload error: "+err.Error())
+func NewPayloadError(c *gin.Context, err error) {
+	NewResponse(c, http.StatusBadRequest, nil, "Payload error: "+err.Error())
 }
 
-func newBadRequestError(c *gin.Context, err error) {
-	newResponse(c, http.StatusBadRequest, nil, err.Error())
+func NewEntityError(c *gin.Context, err error) {
+	NewResponse(c, http.StatusUnprocessableEntity, nil, err.Error())
 }
 
-func newResourceNotFoundError(c *gin.Context, err error) {
-	newResponse(c, http.StatusNotFound, nil, err.Error())
+func NewBadRequestError(c *gin.Context, err error) {
+	NewResponse(c, http.StatusBadRequest, nil, err.Error())
 }
 
-func newInternalServerError(c *gin.Context, err error) {
-	newResponse(c, http.StatusInternalServerError, nil, err.Error())
+func NewResourceNotFoundError(c *gin.Context, err error) {
+	NewResponse(c, http.StatusNotFound, nil, err.Error())
+}
+
+func NewInternalServerError(c *gin.Context, err error) {
+	NewResponse(c, http.StatusInternalServerError, nil, err.Error())
 }

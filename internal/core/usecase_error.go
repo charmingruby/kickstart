@@ -1,8 +1,6 @@
-package validation
+package core
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func NewInternalErr() error {
 	return &ErrInternal{
@@ -30,5 +28,4 @@ type ErrNotFound struct {
 
 func (e *ErrNotFound) Error() string {
 	return e.Message
-
 }

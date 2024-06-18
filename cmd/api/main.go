@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/charmingruby/kickstart/internal/config"
-	"github.com/charmingruby/kickstart/internal/domain/example/usecase"
+	"github.com/charmingruby/kickstart/internal/domain/example/example_usecase"
 	"github.com/charmingruby/kickstart/internal/infra/database"
 	"github.com/charmingruby/kickstart/internal/infra/transport/rest"
 	"github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint"
@@ -80,7 +80,7 @@ func initDependencies(db *sqlx.DB, router *gin.Engine) {
 		os.Exit(1)
 	}
 
-	exampleSvc := usecase.NewExampleService(exampleRepo)
+	exampleSvc := example_usecase.NewExampleService(exampleRepo)
 
 	endpoint.NewHandler(router, exampleSvc).Register()
 }

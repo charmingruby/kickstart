@@ -13,5 +13,5 @@ import (
 //	@Success		200	{object}	Response
 //	@Router			/welcome [get]
 func welcomeEndpoint(c *gin.Context) {
-	newOkResponse(c, "OK!", nil)
+	NewOkResponse(c, "OK!", nil)
 }

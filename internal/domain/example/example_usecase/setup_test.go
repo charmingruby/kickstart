@@ -1,9 +1,9 @@
-package usecase
+package example_usecase
 
 import (
 	"testing"
 
-	"github.com/charmingruby/kickstart/internal/domain/example/entity"
+	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
 	"github.com/charmingruby/kickstart/test/inmemory"
 	"github.com/stretchr/testify/suite"
 )
@@ -22,22 +22,22 @@ func (s *Suite) SetupSuite() {
 
 // executes before each test
 func (s *Suite) SetupTest() {
-	s.exampleRepo.Items = []entity.Example{}
+	s.exampleRepo.Items = []example_entity.Example{}
 }
 
 // executes after each test
 func (s *Suite) TearDownTest() {
-	s.exampleRepo.Items = []entity.Example{}
+	s.exampleRepo.Items = []example_entity.Example{}
 }
 
 // executes before each sub test
 func (s *Suite) SetupSubTest() {
-	s.exampleRepo.Items = []entity.Example{}
+	s.exampleRepo.Items = []example_entity.Example{}
 }
 
 // executes after each sub test
 func (s *Suite) TearDownSubTest() {
-	s.exampleRepo.Items = []entity.Example{}
+	s.exampleRepo.Items = []example_entity.Example{}
 }
 
 func TestSuite(t *testing.T) {
