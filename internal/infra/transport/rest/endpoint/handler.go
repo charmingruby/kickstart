@@ -26,7 +26,7 @@ func (h *Handler) Register() {
 	docs.SwaggerInfo.BasePath = basePath
 	{
 		v1.GET("/welcome", welcomeEndpoint)
-		v1.POST("/examples", h.CreateExampleEndpoint)
+		v1.POST("/examples", h.createExampleEndpoint)
 		v1.GET("/examples/:id", h.getExampleEndpoint)
 	}
 

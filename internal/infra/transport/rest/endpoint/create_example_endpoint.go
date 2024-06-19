@@ -23,7 +23,7 @@ type CreateExampleRequest struct {
 //	@Failure		400		{object}	Response
 //	@Failure		500		{object}	Response
 //	@Router			/examples [post]
-func (h *Handler) CreateExampleEndpoint(c *gin.Context) {
+func (h *Handler) createExampleEndpoint(c *gin.Context) {
 	var req CreateExampleRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		NewPayloadError(c, err)
