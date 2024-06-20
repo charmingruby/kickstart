@@ -39,7 +39,7 @@ func (s *Suite) TearDownSuite() {
 	s.container.DB.Close()
 }
 
-func (s *Suite) SetupTest() {
+func (s *Suite) SetupSubTest() {
 	err := s.container.RunMigrations()
 	assert.NoError(s.T(), err)
 
@@ -58,7 +58,7 @@ func (s *Suite) SetupTest() {
 	s.server = httptest.NewServer(server.Router)
 }
 
-func (s *Suite) TearDownTest() {
+func (s *Suite) TearDownSubTest() {
 	err := s.container.RollbackMigrations()
 	assert.NoError(s.T(), err)
 
