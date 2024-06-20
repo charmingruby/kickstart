@@ -6,15 +6,10 @@ import (
 
 	"github.com/charmingruby/kickstart/internal/core"
 	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
+	"github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint"
 )
 
 func (s *Suite) Test_GetExampleEndpoint() {
-	type getExampleResponse struct {
-		Code    int                     `json:"status_code"`
-		Message string                  `json:"message"`
-		Data    *example_entity.Example `json:"data,omitempty"`
-	}
-
 	s.Run("it should be able get an example by id", func() {
 		example, err := example_entity.NewExample("Dummy Name")
 		s.NoError(err)
@@ -23,12 +18,14 @@ func (s *Suite) Test_GetExampleEndpoint() {
 		s.NoError(err)
 
 		route := fmt.Sprintf("/v1/examples/%s", example.ID)
+
 		res, err := http.Get(s.Route(route))
 		s.NoError(err)
-		s.Equal(http.StatusOK, res.StatusCode)
 		defer res.Body.Close()
 
-		data := getExampleResponse{}
+		s.Equal(http.StatusOK, res.StatusCode)
+
+		data := endpoint.GetExampleResponse{}
 		err = parseRequest(&data, res.Body)
 		s.NoError(err)
 
@@ -39,12 +36,14 @@ func (s *Suite) Test_GetExampleEndpoint() {
 
 	s.Run("it should be not able get an example by a nonexistent id", func() {
 		route := fmt.Sprintf("/v1/examples/%s", "invalid_id")
+
 		res, err := http.Get(s.Route(route))
 		s.NoError(err)
-		s.Equal(http.StatusNotFound, res.StatusCode)
 		defer res.Body.Close()
 
-		data := getExampleResponse{}
+		s.Equal(http.StatusNotFound, res.StatusCode)
+
+		data := endpoint.GetExampleResponse{}
 		err = parseRequest(&data, res.Body)
 		s.NoError(err)
 

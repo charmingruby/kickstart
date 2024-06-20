@@ -2,8 +2,15 @@ package endpoint
 
 import (
 	"github.com/charmingruby/kickstart/internal/core"
+	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
 	"github.com/gin-gonic/gin"
 )
+
+type GetExampleResponse struct {
+	Message string                  `json:"message"`
+	Data    *example_entity.Example `json:"data"`
+	Code    int                     `json:"status_code"`
+}
 
 // GetExample godoc
 //
@@ -12,8 +19,8 @@ import (
 //	@Tags			Examples
 //	@Accept			json
 //	@Produce		json
-//	@Param			id	path		string	true	"Example UUID"
-//	@Success		200	{object}	Response
+//	@Param			id	path		string	true	"Get Example Payload"
+//	@Success		200	{object}	GetExampleResponse
 //	@Failure		404	{object}	Response
 //	@Failure		500	{object}	Response
 //	@Router			/examples/{id} [get]

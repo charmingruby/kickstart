@@ -44,7 +44,7 @@ run:
 
 .PHONY: docs
 docs:
-	swag init -g swagger.go -d ./internal/infra -o ./docs
+	swag init -g swagger.go -d ./internal/infra -o ./docs --parseDependency --parseInternal
 
 .PHONY: build
 build:

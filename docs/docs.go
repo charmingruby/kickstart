@@ -38,7 +38,7 @@ const docTemplate = `{
                 "summary": "Create example",
                 "parameters": [
                     {
-                        "description": "Add Example",
+                        "description": "Create Example Payload",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -85,7 +85,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Example UUID",
+                        "description": "Get Example Payload",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -95,7 +95,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/endpoint.Response"
+                            "$ref": "#/definitions/endpoint.GetExampleResponse"
                         }
                     },
                     "404": {
@@ -146,6 +146,20 @@ const docTemplate = `{
                 }
             }
         },
+        "endpoint.GetExampleResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/example_entity.Example"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        },
         "endpoint.Response": {
             "type": "object",
             "properties": {
@@ -155,6 +169,26 @@ const docTemplate = `{
                 },
                 "status_code": {
                     "type": "integer"
+                }
+            }
+        },
+        "example_entity.Example": {
+            "type": "object",
+            "required": [
+                "created_at",
+                "id"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 16,
+                    "minLength": 3
                 }
             }
         }

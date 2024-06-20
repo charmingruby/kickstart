@@ -18,7 +18,7 @@ type CreateExampleRequest struct {
 //	@Tags			Examples
 //	@Accept			json
 //	@Produce		json
-//	@Param			request	body		CreateExampleRequest	true	"Add Example"
+//	@Param			request	body		CreateExampleRequest	true	"Create Example Payload"
 //	@Success		201		{object}	Response
 //	@Failure		400		{object}	Response
 //	@Failure		500		{object}	Response

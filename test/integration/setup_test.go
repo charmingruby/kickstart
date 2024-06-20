@@ -14,7 +14,6 @@ import (
 	"github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint"
 	"github.com/charmingruby/kickstart/test/container"
 	"github.com/gin-gonic/gin"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -41,7 +40,7 @@ func (s *Suite) TearDownSuite() {
 
 func (s *Suite) SetupSubTest() {
 	err := s.container.RunMigrations()
-	assert.NoError(s.T(), err)
+	s.NoError(err)
 
 	router := gin.Default()
 	s.exampleRepo, err = database.NewPostgresExampleRepository(s.container.DB)
@@ -60,7 +59,7 @@ func (s *Suite) SetupSubTest() {
 
 func (s *Suite) TearDownSubTest() {
 	err := s.container.RollbackMigrations()
-	assert.NoError(s.T(), err)
+	s.NoError(err)
 
 	s.server.Close()
 }

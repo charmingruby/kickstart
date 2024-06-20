@@ -32,7 +32,7 @@
                 "summary": "Create example",
                 "parameters": [
                     {
-                        "description": "Add Example",
+                        "description": "Create Example Payload",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -79,7 +79,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Example UUID",
+                        "description": "Get Example Payload",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -89,7 +89,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/endpoint.Response"
+                            "$ref": "#/definitions/endpoint.GetExampleResponse"
                         }
                     },
                     "404": {
@@ -140,6 +140,20 @@
                 }
             }
         },
+        "endpoint.GetExampleResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/example_entity.Example"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        },
         "endpoint.Response": {
             "type": "object",
             "properties": {
@@ -149,6 +163,26 @@
                 },
                 "status_code": {
                     "type": "integer"
+                }
+            }
+        },
+        "example_entity.Example": {
+            "type": "object",
+            "required": [
+                "created_at",
+                "id"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 16,
+                    "minLength": 3
                 }
             }
         }

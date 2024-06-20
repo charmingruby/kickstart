@@ -5,29 +5,31 @@ import (
 	"net/http"
 
 	"github.com/charmingruby/kickstart/internal/core"
+	"github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint"
 )
 
 func (s *Suite) Test_CreateExampleEndpoint() {
-	type createExamplePayload struct {
-		Name string `json:"name"`
-	}
-
 	s.Run("it should be able to create an example", func() {
-		payload := createExamplePayload{Name: "Dummy name"}
+		payload := endpoint.CreateExampleRequest{Name: "Dummy name"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
 		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
 		s.NoError(err)
-		s.Equal(http.StatusCreated, res.StatusCode)
 		defer res.Body.Close()
 
-		_, err = readBody(res)
+		s.Equal(http.StatusCreated, res.StatusCode)
+
+		data := endpoint.Response{}
+		err = parseRequest(&data, res.Body)
 		s.NoError(err)
+
+		s.Equal("example created successfully", data.Message)
+		s.Equal(http.StatusCreated, data.Code)
 	})
 
 	s.Run("it should be not able to create an invalid example", func() {
-		payload := createExamplePayload{Name: "12"}
+		payload := endpoint.CreateExampleRequest{Name: "12"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
@@ -36,7 +38,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		s.Equal(http.StatusUnprocessableEntity, res.StatusCode)
 		defer res.Body.Close()
 
-		data := errorResponse{}
+		data := endpoint.Response{}
 		err = parseRequest(&data, res.Body)
 		s.NoError(err)
 

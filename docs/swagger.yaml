@@ -7,6 +7,15 @@ definitions:
     required:
     - name
     type: object
+  endpoint.GetExampleResponse:
+    properties:
+      data:
+        $ref: '#/definitions/example_entity.Example'
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
   endpoint.Response:
     properties:
       data: {}
@@ -14,6 +23,20 @@ definitions:
         type: string
       status_code:
         type: integer
+    type: object
+  example_entity.Example:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        maxLength: 16
+        minLength: 3
+        type: string
+    required:
+    - created_at
+    - id
     type: object
 host: localhost:3000
 info:
@@ -34,7 +57,7 @@ paths:
       - application/json
       description: Create a new example
       parameters:
-      - description: Add Example
+      - description: Create Example Payload
         in: body
         name: request
         required: true
@@ -64,7 +87,7 @@ paths:
       - application/json
       description: Find an example
       parameters:
-      - description: Example UUID
+      - description: Get Example Payload
         in: path
         name: id
         required: true
@@ -75,7 +98,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/endpoint.Response'
+            $ref: '#/definitions/endpoint.GetExampleResponse'
         "404":
           description: Not Found
           schema:
