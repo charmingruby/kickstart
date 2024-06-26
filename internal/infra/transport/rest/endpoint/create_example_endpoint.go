@@ -13,8 +13,8 @@ type CreateExampleRequest struct {
 
 // CreateExample godoc
 //
-//	@Summary		Create example
-//	@Description	Create a new example
+//	@Summary		Creates an example
+//	@Description	Creates an example
 //	@Tags			Examples
 //	@Accept			json
 //	@Produce		json

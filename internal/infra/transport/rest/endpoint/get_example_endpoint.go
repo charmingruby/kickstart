@@ -14,8 +14,8 @@ type GetExampleResponse struct {
 
 // GetExample godoc
 //
-//	@Summary		Get example
-//	@Description	Find an example
+//	@Summary		Gets an example
+//	@Description	Gets an example
 //	@Tags			Examples
 //	@Accept			json
 //	@Produce		json

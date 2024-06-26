@@ -6,7 +6,7 @@ import (
 
 // Welcome godoc
 //
-//	@Summary		Welcome
+//	@Summary		Health Check
 //	@Description	Health Check
 //	@Tags			Health
 //	@Produce		json
