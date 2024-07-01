@@ -49,3 +49,10 @@ docs:
 .PHONY: build
 build:
 	CGO_ENABLED=0 GOOS=linux go build -o ./bin/kickstart ./cmd/api/main.go
+
+###################
+# Utils           #
+###################
+.PHONY: clear-notes
+clear-notes:
+	find . -type f -name "*_notes.md" -exec rm -f {} \;
