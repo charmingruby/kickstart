@@ -1,4 +1,4 @@
-package endpoint
+package v1
 
 import (
 	"github.com/charmingruby/kickstart/internal/core"

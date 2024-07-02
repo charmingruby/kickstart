@@ -15,7 +15,7 @@ import (
 	"github.com/charmingruby/kickstart/internal/domain/example/example_usecase"
 	"github.com/charmingruby/kickstart/internal/infra/database"
 	"github.com/charmingruby/kickstart/internal/infra/transport/rest"
-	"github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint"
+	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
 	"github.com/charmingruby/kickstart/pkg/postgres"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
@@ -82,5 +82,5 @@ func initDependencies(db *sqlx.DB, router *gin.Engine) {
 
 	exampleSvc := example_usecase.NewExampleService(exampleRepo)
 
-	endpoint.NewHandler(router, exampleSvc).Register()
+	v1.NewHandler(router, exampleSvc).Register()
 }
