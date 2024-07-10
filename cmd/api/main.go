@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/charmingruby/kickstart/internal/config"
+	"github.com/charmingruby/kickstart/config"
 	"github.com/charmingruby/kickstart/internal/domain/example/example_usecase"
 	"github.com/charmingruby/kickstart/internal/infra/database"
 	"github.com/charmingruby/kickstart/internal/infra/transport/rest"
