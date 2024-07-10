@@ -5,7 +5,7 @@ import (
 	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
 )
 
-func (s *ExampleService) GetExample(id string) (*example_entity.Example, error) {
+func (s *ExampleService) GetExampleUseCase(id string) (*example_entity.Example, error) {
 	example, err := s.exampleRepo.FindByID(id)
 	if err != nil {
 		return nil, core.NewNotFoundErr("example")

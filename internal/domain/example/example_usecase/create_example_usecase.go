@@ -6,7 +6,7 @@ import (
 	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
 )
 
-func (s *ExampleService) CreateExample(dto example_dto.CreateExampleDTO) error {
+func (s *ExampleService) CreateExampleUseCase(dto example_dto.CreateExampleUseCaseDTO) error {
 	example, err := example_entity.NewExample(dto.Name)
 	if err != nil {
 		return err

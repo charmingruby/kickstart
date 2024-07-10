@@ -30,11 +30,11 @@ func (h *Handler) createExampleEndpoint(c *gin.Context) {
 		return
 	}
 
-	dto := example_dto.CreateExampleDTO{
+	dto := example_dto.CreateExampleUseCaseDTO{
 		Name: req.Name,
 	}
 
-	if err := h.exampleService.CreateExample(dto); err != nil {
+	if err := h.exampleService.CreateExampleUseCase(dto); err != nil {
 		validationErr, ok := err.(*core.ErrValidation)
 		if ok {
 			NewEntityError(c, validationErr)

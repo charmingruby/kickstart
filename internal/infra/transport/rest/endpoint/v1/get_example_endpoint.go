@@ -27,7 +27,7 @@ type GetExampleResponse struct {
 func (h *Handler) getExampleEndpoint(c *gin.Context) {
 	exampleID := c.Param("id")
 
-	example, err := h.exampleService.GetExample(exampleID)
+	example, err := h.exampleService.GetExampleUseCase(exampleID)
 	if err != nil {
 		resourceNotFoundErr, ok := err.(*core.ErrNotFound)
 		if ok {

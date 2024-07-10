@@ -15,7 +15,7 @@ func (s *Suite) Test_GetExample() {
 		items := s.exampleRepo.Items
 		s.Equal(1, len(items))
 
-		result, err := s.exampleService.GetExample(example.ID)
+		result, err := s.exampleService.GetExampleUseCase(example.ID)
 		s.NoError(err)
 
 		s.Equal(items[0].ID, result.ID)
@@ -30,7 +30,7 @@ func (s *Suite) Test_GetExample() {
 		items := s.exampleRepo.Items
 		s.Equal(1, len(items))
 
-		result, err := s.exampleService.GetExample("invalid id")
+		result, err := s.exampleService.GetExampleUseCase("invalid id")
 		s.Nil(result)
 		s.Error(err)
 		s.Equal(core.NewNotFoundErr("example").Error(), err.Error())

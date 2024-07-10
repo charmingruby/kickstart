@@ -7,9 +7,9 @@ import (
 
 func (s *Suite) Test_CreateExample() {
 	s.Run("it should be able to create an example", func() {
-		dto := example_dto.CreateExampleDTO{Name: "Dummy Name"}
+		dto := example_dto.CreateExampleUseCaseDTO{Name: "Dummy Name"}
 
-		err := s.exampleService.CreateExample(dto)
+		err := s.exampleService.CreateExampleUseCase(dto)
 
 		items := s.exampleRepo.Items
 
@@ -19,9 +19,9 @@ func (s *Suite) Test_CreateExample() {
 	})
 
 	s.Run("it should be not able to create an example with core error", func() {
-		dto := example_dto.CreateExampleDTO{Name: ""}
+		dto := example_dto.CreateExampleUseCaseDTO{Name: ""}
 
-		err := s.exampleService.CreateExample(dto)
+		err := s.exampleService.CreateExampleUseCase(dto)
 
 		s.Error(err)
 		s.Equal(core.ErrMinLength("name", "3"), err.Error())

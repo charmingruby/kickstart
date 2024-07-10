@@ -1,5 +1,5 @@
 package example_dto
 
-type CreateExampleDTO struct {
+type CreateExampleUseCaseDTO struct {
 	Name string `json:"name"`
 }

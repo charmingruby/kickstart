@@ -7,8 +7,8 @@ import (
 )
 
 type ExampleServiceContract interface {
-	CreateExample(dto example_dto.CreateExampleDTO) error
-	GetExample(id string) (*example_entity.Example, error)
+	CreateExampleUseCase(dto example_dto.CreateExampleUseCaseDTO) error
+	GetExampleUseCase(id string) (*example_entity.Example, error)
 }
 
 func NewExampleService(exampleRepo example_repository.ExampleRepository) *ExampleService {
