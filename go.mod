@@ -4,6 +4,7 @@ go 1.22.3
 
 require (
 	github.com/caarlos0/env/v6 v6.10.1
+	github.com/gin-contrib/cors v1.7.2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/golang-migrate/migrate/v4 v4.17.1

@@ -17,6 +17,7 @@ import (
 	"github.com/charmingruby/kickstart/internal/infra/transport/rest"
 	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
 	"github.com/charmingruby/kickstart/pkg/postgres"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
@@ -43,6 +44,11 @@ func main() {
 	}
 
 	router := gin.Default()
+	router.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+		AllowHeaders:    []string{"Origin", "Accept", "Content-Type", "Authorization", "User-Agent"},
+		ExposeHeaders:   []string{"Content-Length"},
+	}))
 
 	initDependencies(db, router)
 
