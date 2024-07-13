@@ -49,7 +49,7 @@ func (s *Suite) SetupSubTest() {
 		os.Exit(1)
 	}
 
-	exampleSvc := example_usecase.NewExampleService(s.exampleRepo)
+	exampleSvc := example_usecase.NewExampleUseCaseRegistry(s.exampleRepo)
 	s.handler = v1.NewHandler(router, exampleSvc)
 	s.handler.Register()
 	server := rest.NewServer(router, "3000")

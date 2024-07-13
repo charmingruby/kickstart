@@ -10,14 +10,14 @@ import (
 
 type Suite struct {
 	suite.Suite
-	exampleRepo    *inmemory.InMemoryExampleRepository
-	exampleService *ExampleService
+	exampleRepo *inmemory.InMemoryExampleRepository
+	exampeUc    *ExampleUseCaseRegistry
 }
 
 // initial setup
 func (s *Suite) SetupSuite() {
 	s.exampleRepo = inmemory.NewInMemoryExampleRepository()
-	s.exampleService = NewExampleService(s.exampleRepo)
+	s.exampeUc = NewExampleUseCaseRegistry(s.exampleRepo)
 }
 
 // executes before each test

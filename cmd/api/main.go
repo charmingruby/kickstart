@@ -86,7 +86,7 @@ func initDependencies(db *sqlx.DB, router *gin.Engine) {
 		os.Exit(1)
 	}
 
-	exampleSvc := example_usecase.NewExampleService(exampleRepo)
+	exampleSvc := example_usecase.NewExampleUseCaseRegistry(exampleRepo)
 
 	v1.NewHandler(router, exampleSvc).Register()
 }

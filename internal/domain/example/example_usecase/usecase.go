@@ -6,17 +6,17 @@ import (
 	"github.com/charmingruby/kickstart/internal/domain/example/example_repository"
 )
 
-type ExampleServiceContract interface {
+type ExampleUseCase interface {
 	CreateExampleUseCase(dto example_dto.CreateExampleUseCaseDTO) error
 	GetExampleUseCase(id string) (*example_entity.Example, error)
 }
 
-func NewExampleService(exampleRepo example_repository.ExampleRepository) *ExampleService {
-	return &ExampleService{
+func NewExampleUseCaseRegistry(exampleRepo example_repository.ExampleRepository) *ExampleUseCaseRegistry {
+	return &ExampleUseCaseRegistry{
 		exampleRepo: exampleRepo,
 	}
 }
 
-type ExampleService struct {
+type ExampleUseCaseRegistry struct {
 	exampleRepo example_repository.ExampleRepository
 }

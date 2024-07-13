@@ -8,7 +8,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func NewHandler(router *gin.Engine, exampleService example_usecase.ExampleServiceContract) *Handler {
+func NewHandler(router *gin.Engine, exampleService example_usecase.ExampleUseCase) *Handler {
 	return &Handler{
 		router:         router,
 		exampleService: exampleService,
@@ -17,7 +17,7 @@ func NewHandler(router *gin.Engine, exampleService example_usecase.ExampleServic
 
 type Handler struct {
 	router         *gin.Engine
-	exampleService example_usecase.ExampleServiceContract
+	exampleService example_usecase.ExampleUseCase
 }
 
 func (h *Handler) Register() {
