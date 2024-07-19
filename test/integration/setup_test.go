@@ -42,7 +42,9 @@ func (s *Suite) SetupSubTest() {
 	err := s.container.RunMigrations()
 	s.NoError(err)
 
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
+
 	s.exampleRepo, err = database.NewPostgresExampleRepository(s.container.DB)
 	if err != nil {
 		slog.Error(fmt.Sprintf("INTEGRATION TEST, DATABASE REPOSITORY: %s", err.Error()))
