@@ -2,6 +2,8 @@ package integration
 
 import (
 	"net/http"
+
+	"github.com/charmingruby/kickstart/test/integration/helper"
 )
 
 func (s *Suite) Test_WelcomeEndpoint() {
@@ -17,7 +19,7 @@ func (s *Suite) Test_WelcomeEndpoint() {
 		defer res.Body.Close()
 
 		data := welcomeResponse{}
-		err = parseRequest(&data, res.Body)
+		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 
 		s.Equal("OK!", data.Message)

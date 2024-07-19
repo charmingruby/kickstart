@@ -6,6 +6,7 @@ import (
 
 	"github.com/charmingruby/kickstart/internal/core"
 	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
+	"github.com/charmingruby/kickstart/test/integration/helper"
 )
 
 func (s *Suite) Test_CreateExampleEndpoint() {
@@ -14,14 +15,14 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
-		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
+		res, err := http.Post(s.Route("/v1/examples"), contentType, helper.WriteBody(body))
 		s.NoError(err)
 		defer res.Body.Close()
 
 		s.Equal(http.StatusCreated, res.StatusCode)
 
 		data := v1.Response{}
-		err = parseRequest(&data, res.Body)
+		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 
 		s.Equal("example created successfully", data.Message)
@@ -33,13 +34,13 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
-		res, err := http.Post(s.Route("/v1/examples"), contentType, writeBody(body))
+		res, err := http.Post(s.Route("/v1/examples"), contentType, helper.WriteBody(body))
 		s.NoError(err)
 		s.Equal(http.StatusUnprocessableEntity, res.StatusCode)
 		defer res.Body.Close()
 
 		data := v1.Response{}
-		err = parseRequest(&data, res.Body)
+		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 
 		s.Equal(core.ErrMinLength("name", "3"), data.Message)
