@@ -2,14 +2,12 @@ package example_usecase
 
 import (
 	"github.com/charmingruby/kickstart/internal/core"
-	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
+	"github.com/charmingruby/kickstart/test/factory"
 )
 
 func (s *Suite) Test_GetExample() {
 	s.Run("it should be able get an example", func() {
-		example, _ := example_entity.NewExample("Dummy Name")
-
-		err := s.exampleRepo.Store(example)
+		example, err := factory.MakeExample(s.exampleRepo, "exmaple")
 		s.NoError(err)
 
 		items := s.exampleRepo.Items
@@ -22,9 +20,7 @@ func (s *Suite) Test_GetExample() {
 	})
 
 	s.Run("it should be not able to find nonexistent example", func() {
-		example, _ := example_entity.NewExample("Dummy Name")
-
-		err := s.exampleRepo.Store(example)
+		_, err := factory.MakeExample(s.exampleRepo, "exmaple")
 		s.NoError(err)
 
 		items := s.exampleRepo.Items

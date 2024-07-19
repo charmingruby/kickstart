@@ -6,7 +6,7 @@ import (
 
 	"github.com/charmingruby/kickstart/internal/core"
 	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
-	"github.com/charmingruby/kickstart/test/integration/factory"
+	"github.com/charmingruby/kickstart/test/factory"
 	"github.com/charmingruby/kickstart/test/integration/helper"
 )
 
