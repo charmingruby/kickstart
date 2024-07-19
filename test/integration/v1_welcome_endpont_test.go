@@ -13,7 +13,9 @@ func (s *Suite) Test_WelcomeEndpoint() {
 	}
 
 	s.Run("it should be able to get a welcome message", func() {
-		res, err := http.Get(s.Route("/v1/welcome"))
+		route := s.V1Route("/welcome")
+
+		res, err := http.Get(route)
 		s.NoError(err)
 		s.Equal(http.StatusOK, res.StatusCode)
 		defer res.Body.Close()

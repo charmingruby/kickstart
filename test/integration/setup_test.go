@@ -64,8 +64,8 @@ func (s *Suite) TearDownSubTest() {
 	s.server.Close()
 }
 
-func (s *Suite) Route(path string) string {
-	return fmt.Sprintf("%s/api%s", s.server.URL, path)
+func (s *Suite) V1Route(path string) string {
+	return fmt.Sprintf("%s/api/v1%s", s.server.URL, path)
 }
 
 func TestSuite(t *testing.T) {

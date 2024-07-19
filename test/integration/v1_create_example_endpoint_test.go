@@ -11,11 +11,15 @@ import (
 
 func (s *Suite) Test_CreateExampleEndpoint() {
 	s.Run("it should be able to create an example", func() {
+		route := s.V1Route(
+			"/examples",
+		)
+
 		payload := v1.CreateExampleRequest{Name: "Dummy name"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
-		res, err := http.Post(s.Route("/v1/examples"), contentType, helper.WriteBody(body))
+		res, err := http.Post(route, contentType, helper.WriteBody(body))
 		s.NoError(err)
 		defer res.Body.Close()
 
@@ -30,11 +34,15 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 	})
 
 	s.Run("it should be not able to create an invalid example", func() {
+		route := s.V1Route(
+			"/examples",
+		)
+
 		payload := v1.CreateExampleRequest{Name: "12"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
-		res, err := http.Post(s.Route("/v1/examples"), contentType, helper.WriteBody(body))
+		res, err := http.Post(route, contentType, helper.WriteBody(body))
 		s.NoError(err)
 		s.Equal(http.StatusUnprocessableEntity, res.StatusCode)
 		defer res.Body.Close()

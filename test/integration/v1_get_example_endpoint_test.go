@@ -5,22 +5,23 @@ import (
 	"net/http"
 
 	"github.com/charmingruby/kickstart/internal/core"
-	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
 	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
+	"github.com/charmingruby/kickstart/test/integration/factory"
 	"github.com/charmingruby/kickstart/test/integration/helper"
 )
 
 func (s *Suite) Test_GetExampleEndpoint() {
 	s.Run("it should be able get an example by id", func() {
-		example, err := example_entity.NewExample("Dummy Name")
+		name := "example"
+
+		example, err := factory.MakeExample(s.exampleRepo, name)
 		s.NoError(err)
 
-		err = s.exampleRepo.Store(example)
-		s.NoError(err)
+		route := s.V1Route(
+			fmt.Sprintf("/examples/%s", example.ID),
+		)
 
-		route := fmt.Sprintf("/v1/examples/%s", example.ID)
-
-		res, err := http.Get(s.Route(route))
+		res, err := http.Get(route)
 		s.NoError(err)
 		defer res.Body.Close()
 
@@ -36,9 +37,11 @@ func (s *Suite) Test_GetExampleEndpoint() {
 	})
 
 	s.Run("it should be not able get an example by a nonexistent id", func() {
-		route := fmt.Sprintf("/v1/examples/%s", "invalid_id")
+		route := s.V1Route(
+			fmt.Sprintf("/examples/%s", "invalid id"),
+		)
 
-		res, err := http.Get(s.Route(route))
+		res, err := http.Get(route)
 		s.NoError(err)
 		defer res.Body.Close()
 
