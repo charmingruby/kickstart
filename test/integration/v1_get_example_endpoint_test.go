@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/charmingruby/kickstart/internal/core"
-	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
+	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/example_endpoint_v1"
 	"github.com/charmingruby/kickstart/test/factory"
 	"github.com/charmingruby/kickstart/test/integration/helper"
 )
@@ -27,7 +27,7 @@ func (s *Suite) Test_GetExampleEndpoint() {
 
 		s.Equal(http.StatusOK, res.StatusCode)
 
-		data := v1.GetExampleResponse{}
+		data := example_endpoint_v1.GetExampleResponse{}
 		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 
@@ -47,7 +47,7 @@ func (s *Suite) Test_GetExampleEndpoint() {
 
 		s.Equal(http.StatusNotFound, res.StatusCode)
 
-		data := v1.GetExampleResponse{}
+		data := example_endpoint_v1.GetExampleResponse{}
 		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 

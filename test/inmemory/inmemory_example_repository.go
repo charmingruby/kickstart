@@ -1,8 +1,8 @@
 package inmemory
 
 import (
-	"github.com/charmingruby/kickstart/internal/core"
-	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
+	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/example/domain/example_entity"
 )
 
 func NewInMemoryExampleRepository() *InMemoryExampleRepository {

@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/charmingruby/kickstart/internal/core"
-	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
+	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
+	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/example_endpoint_v1"
 	"github.com/charmingruby/kickstart/test/integration/helper"
 )
 
@@ -15,7 +16,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 			"/examples",
 		)
 
-		payload := v1.CreateExampleRequest{Name: "Dummy name"}
+		payload := example_endpoint_v1.CreateExampleRequest{Name: "Dummy name"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
@@ -25,7 +26,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 
 		s.Equal(http.StatusCreated, res.StatusCode)
 
-		data := v1.Response{}
+		data := api_rest.Response{}
 		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 
@@ -38,7 +39,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 			"/examples",
 		)
 
-		payload := v1.CreateExampleRequest{Name: "12"}
+		payload := example_endpoint_v1.CreateExampleRequest{Name: "12"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
@@ -47,7 +48,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		s.Equal(http.StatusUnprocessableEntity, res.StatusCode)
 		defer res.Body.Close()
 
-		data := v1.Response{}
+		data := api_rest.Response{}
 		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 

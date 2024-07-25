@@ -1,8 +1,8 @@
 package factory
 
 import (
-	"github.com/charmingruby/kickstart/internal/domain/example/example_entity"
-	"github.com/charmingruby/kickstart/internal/domain/example/example_repository"
+	"github.com/charmingruby/kickstart/internal/example/domain/example_entity"
+	"github.com/charmingruby/kickstart/internal/example/domain/example_repository"
 )
 
 func MakeExample(

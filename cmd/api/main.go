@@ -12,12 +12,10 @@ import (
 	"time"
 
 	"github.com/charmingruby/kickstart/config"
-	"github.com/charmingruby/kickstart/internal/domain/example/example_usecase"
-	"github.com/charmingruby/kickstart/internal/infra/database"
-	"github.com/charmingruby/kickstart/internal/infra/transport/rest"
-	v1 "github.com/charmingruby/kickstart/internal/infra/transport/rest/endpoint/v1"
+	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
+	"github.com/charmingruby/kickstart/internal/example"
+	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository/postgres_example_repository"
 	"github.com/charmingruby/kickstart/pkg/postgres"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
@@ -44,15 +42,11 @@ func main() {
 	}
 
 	router := gin.Default()
-	router.Use(cors.New(cors.Config{
-		AllowAllOrigins: true,
-		AllowHeaders:    []string{"Origin", "Accept", "Content-Type", "Authorization", "User-Agent"},
-		ExposeHeaders:   []string{"Content-Length"},
-	}))
+	api_rest.SetupCORS(router)
 
 	initDependencies(db, router)
 
-	server := rest.NewServer(router, cfg.ServerConfig.Port)
+	server := api_rest.NewServer(router, cfg.ServerConfig.Port)
 
 	go func() {
 		if err := server.Start(); err != nil && !errors.Is(err, http.ErrServerClosed) {
@@ -80,13 +74,12 @@ func main() {
 }
 
 func initDependencies(db *sqlx.DB, router *gin.Engine) {
-	exampleRepo, err := database.NewPostgresExampleRepository(db)
+	// Example module
+	exampleRepo, err := postgres_example_repository.NewPostgresExampleRepository(db)
 	if err != nil {
 		slog.Error(fmt.Sprintf("DATABASE REPOSITORY: %s", err.Error()))
 		os.Exit(1)
 	}
-
-	exampleSvc := example_usecase.NewExampleUseCaseRegistry(exampleRepo)
-
-	v1.NewHandler(router, exampleSvc).Register()
+	exampleSvc := example.NewService(exampleRepo)
+	example.NewHTTPService(router, exampleSvc).Register()
 }
