@@ -13,7 +13,6 @@ type environment struct {
 	DatabaseName     string `env:"DATABASE_NAME,required"`
 	DatabaseSSL      string `env:"DATABASE_SSL,required"`
 	ServerPort       string `env:"SERVER_PORT,required"`
-	ServerHost       string `env:"SERVER_HOST,required"`
 }
 
 func NewConfig() (*Config, error) {
@@ -35,7 +34,6 @@ func NewConfig() (*Config, error) {
 		},
 		ServerConfig: &serverConfig{
 			Port: environment.ServerPort,
-			Host: environment.ServerHost,
 		},
 	}
 
@@ -57,5 +55,4 @@ type databaseConfig struct {
 
 type serverConfig struct {
 	Port string
-	Host string
 }
