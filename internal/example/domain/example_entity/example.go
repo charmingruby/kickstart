@@ -4,12 +4,11 @@ import (
 	"time"
 
 	"github.com/charmingruby/kickstart/internal/common/core"
-	"github.com/google/uuid"
 )
 
 func NewExample(name string) (*Example, error) {
 	e := Example{
-		ID:        uuid.New().String(),
+		ID:        core.NewID(),
 		Name:      name,
 		CreatedAt: time.Now(),
 	}
