@@ -3,14 +3,14 @@ package example_endpoint_v1
 import (
 	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
 	"github.com/charmingruby/kickstart/internal/common/core"
-	"github.com/charmingruby/kickstart/internal/example/domain/example_entity"
+	"github.com/charmingruby/kickstart/internal/example/domain/entity"
 	"github.com/gin-gonic/gin"
 )
 
 type GetExampleResponse struct {
-	Message string                  `json:"message"`
-	Data    *example_entity.Example `json:"data"`
-	Code    int                     `json:"status_code"`
+	Message string          `json:"message"`
+	Data    *entity.Example `json:"data"`
+	Code    int             `json:"status_code"`
 }
 
 // GetExample godoc

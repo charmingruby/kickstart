@@ -1,8 +1,7 @@
-package postgres_example_repository
+package postgres_repository
 
 import (
-	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository"
-	"github.com/charmingruby/kickstart/internal/example/domain/example_entity"
+	"github.com/charmingruby/kickstart/internal/example/domain/entity"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -29,7 +28,7 @@ func NewPostgresExampleRepository(db *sqlx.DB) (*PostgresExampleRepository, erro
 		stmt, err := db.Preparex(statement)
 		if err != nil {
 			return nil,
-				postgres_repository.NewPreparationErr(queryName, "example", err)
+				NewPreparationErr(queryName, "example", err)
 		}
 
 		stmts[queryName] = stmt
@@ -51,13 +50,13 @@ func (r *PostgresExampleRepository) statement(queryName string) (*sqlx.Stmt, err
 
 	if !ok {
 		return nil,
-			postgres_repository.NewStatementNotPreparedErr(queryName, "example")
+			NewStatementNotPreparedErr(queryName, "example")
 	}
 
 	return stmt, nil
 }
 
-func (r *PostgresExampleRepository) Store(e *example_entity.Example) error {
+func (r *PostgresExampleRepository) Store(e *entity.Example) error {
 	stmt, err := r.statement(createExample)
 	if err != nil {
 		return err
@@ -73,13 +72,13 @@ func (r *PostgresExampleRepository) Store(e *example_entity.Example) error {
 	return nil
 }
 
-func (r *PostgresExampleRepository) FindByID(id string) (*example_entity.Example, error) {
+func (r *PostgresExampleRepository) FindByID(id string) (*entity.Example, error) {
 	stmt, err := r.statement(findExampleByID)
 	if err != nil {
 		return nil, err
 	}
 
-	var example example_entity.Example
+	var example entity.Example
 	if err := stmt.Get(&example, id); err != nil {
 		return nil, err
 	}

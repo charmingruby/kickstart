@@ -8,9 +8,9 @@ import (
 	"testing"
 
 	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
-	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository/postgres_example_repository"
-	"github.com/charmingruby/kickstart/internal/example/domain/example_repository"
-	"github.com/charmingruby/kickstart/internal/example/domain/example_usecase"
+	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository"
+	"github.com/charmingruby/kickstart/internal/example/domain/repository"
+	"github.com/charmingruby/kickstart/internal/example/domain/usecase"
 	"github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/example_endpoint_v1"
 	"github.com/charmingruby/kickstart/test/container"
 	"github.com/gin-gonic/gin"
@@ -26,7 +26,7 @@ type Suite struct {
 	container   *container.TestDatabase
 	server      *httptest.Server
 	handler     *example_endpoint_v1.Handler
-	exampleRepo example_repository.ExampleRepository
+	exampleRepo repository.ExampleRepository
 }
 
 func (s *Suite) SetupSuite() {
@@ -45,13 +45,13 @@ func (s *Suite) SetupSubTest() {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 
-	s.exampleRepo, err = postgres_example_repository.NewPostgresExampleRepository(s.container.DB)
+	s.exampleRepo, err = postgres_repository.NewPostgresExampleRepository(s.container.DB)
 	if err != nil {
 		slog.Error(fmt.Sprintf("INTEGRATION TEST, DATABASE REPOSITORY: %s", err.Error()))
 		os.Exit(1)
 	}
 
-	exampleSvc := example_usecase.NewExampleUseCaseRegistry(s.exampleRepo)
+	exampleSvc := usecase.NewExampleUseCaseRegistry(s.exampleRepo)
 	s.handler = example_endpoint_v1.NewHandler(router, exampleSvc)
 	s.handler.Register()
 	server := api_rest.NewServer(router, "3000")

@@ -1,4 +1,4 @@
-package example_dto
+package dto
 
 type CreateExampleUseCaseDTO struct {
 	Name string `json:"name"`

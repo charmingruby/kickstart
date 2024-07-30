@@ -14,7 +14,7 @@ import (
 	"github.com/charmingruby/kickstart/config"
 	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
 	"github.com/charmingruby/kickstart/internal/example"
-	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository/postgres_example_repository"
+	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository"
 	"github.com/charmingruby/kickstart/pkg/postgres"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
@@ -75,7 +75,7 @@ func main() {
 
 func initDependencies(db *sqlx.DB, router *gin.Engine) {
 	// Example module
-	exampleRepo, err := postgres_example_repository.NewPostgresExampleRepository(db)
+	exampleRepo, err := postgres_repository.NewPostgresExampleRepository(db)
 	if err != nil {
 		slog.Error(fmt.Sprintf("DATABASE REPOSITORY: %s", err.Error()))
 		os.Exit(1)

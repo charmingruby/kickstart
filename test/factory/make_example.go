@@ -1,15 +1,15 @@
 package factory
 
 import (
-	"github.com/charmingruby/kickstart/internal/example/domain/example_entity"
-	"github.com/charmingruby/kickstart/internal/example/domain/example_repository"
+	"github.com/charmingruby/kickstart/internal/example/domain/entity"
+	"github.com/charmingruby/kickstart/internal/example/domain/repository"
 )
 
 func MakeExample(
-	repo example_repository.ExampleRepository,
+	repo repository.ExampleRepository,
 	name string,
-) (*example_entity.Example, error) {
-	example, err := example_entity.NewExample(name)
+) (*entity.Example, error) {
+	example, err := entity.NewExample(name)
 	if err != nil {
 		return nil, err
 	}

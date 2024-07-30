@@ -1,4 +1,4 @@
-package example_usecase
+package usecase
 
 import (
 	"github.com/charmingruby/kickstart/internal/common/core"

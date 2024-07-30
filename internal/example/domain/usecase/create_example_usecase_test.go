@@ -1,13 +1,13 @@
-package example_usecase
+package usecase
 
 import (
 	"github.com/charmingruby/kickstart/internal/common/core"
-	"github.com/charmingruby/kickstart/internal/example/domain/example_dto"
+	"github.com/charmingruby/kickstart/internal/example/domain/dto"
 )
 
 func (s *Suite) Test_CreateExample() {
 	s.Run("it should be able to create an example", func() {
-		dto := example_dto.CreateExampleUseCaseDTO{Name: "Dummy Name"}
+		dto := dto.CreateExampleUseCaseDTO{Name: "Dummy Name"}
 
 		err := s.useCase.CreateExampleUseCase(dto)
 
@@ -19,7 +19,7 @@ func (s *Suite) Test_CreateExample() {
 	})
 
 	s.Run("it should be not able to create an example with core error", func() {
-		dto := example_dto.CreateExampleUseCaseDTO{Name: ""}
+		dto := dto.CreateExampleUseCaseDTO{Name: ""}
 
 		err := s.useCase.CreateExampleUseCase(dto)
 

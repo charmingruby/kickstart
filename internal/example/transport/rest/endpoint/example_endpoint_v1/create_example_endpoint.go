@@ -4,7 +4,7 @@ import (
 	_ "github.com/charmingruby/kickstart/docs"
 	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
 	"github.com/charmingruby/kickstart/internal/common/core"
-	"github.com/charmingruby/kickstart/internal/example/domain/example_dto"
+	"github.com/charmingruby/kickstart/internal/example/domain/dto"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,7 +31,7 @@ func (h *Handler) createExampleEndpoint(c *gin.Context) {
 		return
 	}
 
-	dto := example_dto.CreateExampleUseCaseDTO{
+	dto := dto.CreateExampleUseCaseDTO{
 		Name: req.Name,
 	}
 
