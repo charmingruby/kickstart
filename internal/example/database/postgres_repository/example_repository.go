@@ -1,6 +1,7 @@
 package postgres_repository
 
 import (
+	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository/mapper"
 	"github.com/charmingruby/kickstart/internal/example/domain/entity"
 	"github.com/jmoiron/sqlx"
 )
@@ -62,9 +63,11 @@ func (r *PostgresExampleRepository) Store(e *entity.Example) error {
 		return err
 	}
 
+	mappedEntity := mapper.DomainExampleToPostgres(*e)
+
 	if _, err := stmt.Exec(
-		e.ID,
-		e.Name,
+		mappedEntity.ID,
+		mappedEntity.Name,
 	); err != nil {
 		return err
 	}
@@ -78,10 +81,12 @@ func (r *PostgresExampleRepository) FindByID(id string) (*entity.Example, error)
 		return nil, err
 	}
 
-	var example entity.Example
+	var example mapper.PostgresExample
 	if err := stmt.Get(&example, id); err != nil {
 		return nil, err
 	}
 
-	return &example, nil
+	mappedExample := mapper.PostgresExampleToDomain(example)
+
+	return &mappedExample, nil
 }

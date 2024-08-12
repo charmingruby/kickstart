@@ -1,7 +1,7 @@
-package example_endpoint_v1
+package v1
 
 import (
-	_ "github.com/charmingruby/kickstart/docs"
+	_ "github.com/charmingruby/kickstart/api"
 	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
 	"github.com/charmingruby/kickstart/internal/common/core"
 	"github.com/charmingruby/kickstart/internal/example/domain/dto"

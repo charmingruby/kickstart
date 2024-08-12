@@ -22,7 +22,7 @@ func (r *InMemoryExampleRepository) Store(e *entity.Example) error {
 
 func (r *InMemoryExampleRepository) FindByID(id string) (*entity.Example, error) {
 	for _, e := range r.Items {
-		if e.ID == id {
+		if e.GetID() == id {
 			return &e, nil
 		}
 	}

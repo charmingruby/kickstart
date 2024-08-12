@@ -16,9 +16,9 @@ func Test_NewExample(t *testing.T) {
 		dateInThePast := time.Now().Add(-time.Minute)
 
 		assert.NoError(t, err)
-		assert.NotNil(t, example.ID)
-		assert.Equal(t, name, example.Name)
-		assert.Less(t, dateInThePast, example.CreatedAt)
+		assert.NotNil(t, example.GetID())
+		assert.Equal(t, name, example.GetName())
+		assert.Less(t, dateInThePast, example.GetCreatedAt())
 	})
 
 	t.Run("it should be not able to create an example with a short name", func(t *testing.T) {

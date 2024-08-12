@@ -15,7 +15,7 @@ func (s *Suite) Test_CreateExample() {
 
 		s.NoError(err)
 		s.Equal(1, len(items))
-		s.Equal(items[0].Name, dto.Name)
+		s.Equal(items[0].GetName(), dto.Name)
 	})
 
 	s.Run("it should be not able to create an example with core error", func() {

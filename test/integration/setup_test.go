@@ -11,7 +11,7 @@ import (
 	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository"
 	"github.com/charmingruby/kickstart/internal/example/domain/repository"
 	"github.com/charmingruby/kickstart/internal/example/domain/usecase"
-	"github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/example_endpoint_v1"
+	v1 "github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/v1"
 	"github.com/charmingruby/kickstart/test/container"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/suite"
@@ -25,7 +25,7 @@ type Suite struct {
 	suite.Suite
 	container   *container.TestDatabase
 	server      *httptest.Server
-	handler     *example_endpoint_v1.Handler
+	handler     *v1.Handler
 	exampleRepo repository.ExampleRepository
 }
 
@@ -52,7 +52,7 @@ func (s *Suite) SetupSubTest() {
 	}
 
 	exampleSvc := usecase.NewExampleUseCaseRegistry(s.exampleRepo)
-	s.handler = example_endpoint_v1.NewHandler(router, exampleSvc)
+	s.handler = v1.NewHandler(router, exampleSvc)
 	s.handler.Register()
 	server := api_rest.NewServer(router, "3000")
 

@@ -1,7 +1,7 @@
-package example_endpoint_v1
+package v1
 
 import (
-	docs "github.com/charmingruby/kickstart/docs"
+	docs "github.com/charmingruby/kickstart/api"
 	"github.com/charmingruby/kickstart/internal/example/domain/usecase"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"

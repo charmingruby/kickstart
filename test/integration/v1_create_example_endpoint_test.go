@@ -6,7 +6,7 @@ import (
 
 	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
 	"github.com/charmingruby/kickstart/internal/common/core"
-	"github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/example_endpoint_v1"
+	v1 "github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/v1"
 	"github.com/charmingruby/kickstart/test/integration/helper"
 )
 
@@ -16,7 +16,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 			"/examples",
 		)
 
-		payload := example_endpoint_v1.CreateExampleRequest{Name: "Dummy name"}
+		payload := v1.CreateExampleRequest{Name: "Dummy name"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 
@@ -39,7 +39,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 			"/examples",
 		)
 
-		payload := example_endpoint_v1.CreateExampleRequest{Name: "12"}
+		payload := v1.CreateExampleRequest{Name: "12"}
 		body, err := json.Marshal(payload)
 		s.NoError(err)
 

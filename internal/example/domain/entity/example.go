@@ -7,21 +7,57 @@ import (
 )
 
 func NewExample(name string) (*Example, error) {
-	e := Example{
+	p := ExamplePayload{
 		ID:        core.NewID(),
 		Name:      name,
 		CreatedAt: time.Now(),
 	}
 
-	if err := core.ValidateStruct(e); err != nil {
+	if err := core.ValidateStruct(p); err != nil {
 		return nil, err
 	}
 
-	return &e, nil
+	example := Example{
+		id:        p.ID,
+		name:      p.Name,
+		createdAt: p.CreatedAt,
+	}
+
+	return &example, nil
+}
+
+type ExamplePayload struct {
+	ID        string    `validate:"required"`
+	Name      string    `validate:"min=3,max=16"`
+	CreatedAt time.Time `validate:"required"`
 }
 
 type Example struct {
-	ID        string    `json:"id" validate:"required" db:"id"`
-	Name      string    `json:"name" validate:"min=3,max=16" db:"name"`
-	CreatedAt time.Time `json:"created_at" validate:"required" db:"created_at"`
+	id        string    `validate:"required"`
+	name      string    `validate:"min=3,max=16"`
+	createdAt time.Time `validate:"required"`
+}
+
+func (e *Example) GetID() string {
+	return e.id
+}
+
+func (e *Example) SetID(id string) {
+	e.id = id
+}
+
+func (e *Example) GetName() string {
+	return e.name
+}
+
+func (e *Example) SetName(name string) {
+	e.name = name
+}
+
+func (e *Example) GetCreatedAt() time.Time {
+	return e.createdAt
+}
+
+func (e *Example) SetCreatedAt(createdAt time.Time) {
+	e.createdAt = createdAt
 }

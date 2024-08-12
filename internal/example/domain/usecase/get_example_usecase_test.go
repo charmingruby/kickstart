@@ -13,10 +13,10 @@ func (s *Suite) Test_GetExample() {
 		items := s.exampleRepo.Items
 		s.Equal(1, len(items))
 
-		result, err := s.useCase.GetExampleUseCase(example.ID)
+		result, err := s.useCase.GetExampleUseCase(example.GetID())
 		s.NoError(err)
 
-		s.Equal(items[0].ID, result.ID)
+		s.Equal(items[0].GetID(), result.GetID())
 	})
 
 	s.Run("it should be not able to find nonexistent example", func() {
