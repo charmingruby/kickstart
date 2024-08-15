@@ -3,12 +3,12 @@ services:
   postgres:
     container_name: kickstart-pg
     image: bitnami/postgresql:latest
-    ports: 
+    ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=kickstart-${DATABASE_NAME}
+      - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - ./.docker/postgres:/var/lib/postgresql/data
     healthcheck:
@@ -18,16 +18,16 @@ services:
       timeout: 5s
 
   app:
-    container_name: kickstart-api 
+    container_name: kickstart-api
     image: kickstart
     depends_on:
       postgres:
-        condition: service_healthy 
-    build: 
+        condition: service_healthy
+    build:
       context: .
       dockerfile: Dockerfile
     # depends on the api port
-    ports: 
+    ports:
       - "3000:3000"
     env_file:
       - .env
