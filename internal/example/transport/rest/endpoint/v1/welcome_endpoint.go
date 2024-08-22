@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
+	"github.com/charmingruby/kickstart/internal/common/api/rest"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,8 +11,8 @@ import (
 //	@Description	Health Check
 //	@Tags			Health
 //	@Produce		json
-//	@Success		200	{object}	api_rest.Response
+//	@Success		200	{object}	rest.Response
 //	@Router			/welcome [get]
 func welcomeEndpoint(c *gin.Context) {
-	api_rest.NewOkResponse(c, "OK!", nil)
+	rest.NewOkResponse(c, "OK!", nil)
 }

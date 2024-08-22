@@ -1,4 +1,4 @@
-package postgres_repository
+package custom_err
 
 import "fmt"
 

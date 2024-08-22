@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
-	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/common/api/rest"
+	"github.com/charmingruby/kickstart/internal/common/core/validation"
 	v1 "github.com/charmingruby/kickstart/internal/example/transport/rest/endpoint/v1"
 	"github.com/charmingruby/kickstart/test/integration/helper"
 )
@@ -26,7 +26,7 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 
 		s.Equal(http.StatusCreated, res.StatusCode)
 
-		data := api_rest.Response{}
+		data := rest.Response{}
 		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 
@@ -48,11 +48,11 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		s.Equal(http.StatusUnprocessableEntity, res.StatusCode)
 		defer res.Body.Close()
 
-		data := api_rest.Response{}
+		data := rest.Response{}
 		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
 
-		s.Equal(core.ErrMinLength("name", "3"), data.Message)
+		s.Equal(validation.ErrMinLength("name", "3"), data.Message)
 		s.Equal(http.StatusUnprocessableEntity, data.Code)
 	})
 }

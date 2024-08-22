@@ -1,6 +1,7 @@
 package postgres_repository
 
 import (
+	"github.com/charmingruby/kickstart/internal/common/core/custom_err"
 	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository/mapper"
 	"github.com/charmingruby/kickstart/internal/example/domain/entity"
 	"github.com/jmoiron/sqlx"
@@ -29,7 +30,7 @@ func NewPostgresExampleRepository(db *sqlx.DB) (*PostgresExampleRepository, erro
 		stmt, err := db.Preparex(statement)
 		if err != nil {
 			return nil,
-				NewPreparationErr(queryName, "example", err)
+				custom_err.NewPreparationErr(queryName, "example", err)
 		}
 
 		stmts[queryName] = stmt
@@ -51,7 +52,7 @@ func (r *PostgresExampleRepository) statement(queryName string) (*sqlx.Stmt, err
 
 	if !ok {
 		return nil,
-			NewStatementNotPreparedErr(queryName, "example")
+			custom_err.NewStatementNotPreparedErr(queryName, "example")
 	}
 
 	return stmt, nil

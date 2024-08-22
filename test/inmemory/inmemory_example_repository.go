@@ -1,7 +1,7 @@
 package inmemory
 
 import (
-	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/common/core/custom_err"
 	"github.com/charmingruby/kickstart/internal/example/domain/entity"
 )
 
@@ -27,5 +27,5 @@ func (r *InMemoryExampleRepository) FindByID(id string) (*entity.Example, error)
 		}
 	}
 
-	return nil, core.NewNotFoundErr("example")
+	return nil, custom_err.NewNotFoundErr("example")
 }

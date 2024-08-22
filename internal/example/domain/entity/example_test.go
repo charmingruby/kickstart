@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/common/core/validation"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -26,7 +26,7 @@ func Test_NewExample(t *testing.T) {
 
 		assert.Error(t, err)
 		assert.Nil(t, example)
-		assert.Equal(t, core.ErrMinLength("name", "3"), err.Error())
+		assert.Equal(t, validation.ErrMinLength("name", "3"), err.Error())
 	})
 
 	t.Run("it should be not able to create an example with a long name", func(t *testing.T) {
@@ -41,6 +41,6 @@ func Test_NewExample(t *testing.T) {
 
 		assert.Error(t, err)
 		assert.Nil(t, example)
-		assert.Equal(t, core.ErrMaxLength("name", "16"), err.Error())
+		assert.Equal(t, validation.ErrMaxLength("name", "16"), err.Error())
 	})
 }

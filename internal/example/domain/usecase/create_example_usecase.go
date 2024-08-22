@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/common/core/custom_err"
 	"github.com/charmingruby/kickstart/internal/example/domain/dto"
 	"github.com/charmingruby/kickstart/internal/example/domain/entity"
 )
@@ -13,7 +13,7 @@ func (s *ExampleUseCaseRegistry) CreateExampleUseCase(dto dto.CreateExampleUseCa
 	}
 
 	if err := s.exampleRepo.Store(example); err != nil {
-		return core.NewInternalErr("create example store")
+		return custom_err.NewInternalErr("create example store")
 	}
 
 	return nil

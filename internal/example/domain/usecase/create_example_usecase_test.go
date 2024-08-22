@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/common/core/validation"
 	"github.com/charmingruby/kickstart/internal/example/domain/dto"
 )
 
@@ -24,6 +24,6 @@ func (s *Suite) Test_CreateExample() {
 		err := s.useCase.CreateExampleUseCase(dto)
 
 		s.Error(err)
-		s.Equal(core.ErrMinLength("name", "3"), err.Error())
+		s.Equal(validation.ErrMinLength("name", "3"), err.Error())
 	})
 }

@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
+	"github.com/charmingruby/kickstart/internal/common/api/rest"
 	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository"
 	"github.com/charmingruby/kickstart/internal/example/domain/repository"
 	"github.com/charmingruby/kickstart/internal/example/domain/usecase"
@@ -54,7 +54,7 @@ func (s *Suite) SetupSubTest() {
 	exampleSvc := usecase.NewExampleUseCaseRegistry(s.exampleRepo)
 	s.handler = v1.NewHandler(router, exampleSvc)
 	s.handler.Register()
-	server := api_rest.NewServer(router, "3000")
+	server := rest.NewServer(router, "3000")
 
 	s.server = httptest.NewServer(server.Router)
 }

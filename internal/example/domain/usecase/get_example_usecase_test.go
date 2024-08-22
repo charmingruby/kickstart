@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/common/core/custom_err"
 	"github.com/charmingruby/kickstart/test/factory"
 )
 
@@ -29,6 +29,6 @@ func (s *Suite) Test_GetExample() {
 		result, err := s.useCase.GetExampleUseCase("invalid id")
 		s.Nil(result)
 		s.Error(err)
-		s.Equal(core.NewNotFoundErr("example").Error(), err.Error())
+		s.Equal(custom_err.NewNotFoundErr("example").Error(), err.Error())
 	})
 }

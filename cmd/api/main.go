@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/charmingruby/kickstart/config"
-	"github.com/charmingruby/kickstart/internal/common/api/api_rest"
+	"github.com/charmingruby/kickstart/internal/common/api/rest"
 	"github.com/charmingruby/kickstart/internal/example"
 	"github.com/charmingruby/kickstart/internal/example/database/postgres_repository"
 	"github.com/charmingruby/kickstart/pkg/postgres"
@@ -42,11 +42,11 @@ func main() {
 	}
 
 	router := gin.Default()
-	api_rest.SetupCORS(router)
+	rest.SetupCORS(router)
 
 	initDependencies(db, router)
 
-	server := api_rest.NewServer(router, cfg.ServerConfig.Port)
+	server := rest.NewServer(router, cfg.ServerConfig.Port)
 
 	go func() {
 		if err := server.Start(); err != nil && !errors.Is(err, http.ErrServerClosed) {

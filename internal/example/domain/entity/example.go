@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/charmingruby/kickstart/internal/common/core"
+	"github.com/charmingruby/kickstart/internal/common/core/validation"
 )
 
 func NewExample(name string) (*Example, error) {
@@ -13,7 +14,7 @@ func NewExample(name string) (*Example, error) {
 		CreatedAt: time.Now(),
 	}
 
-	if err := core.ValidateStruct(p); err != nil {
+	if err := validation.ValidateStruct(p); err != nil {
 		return nil, err
 	}
 
