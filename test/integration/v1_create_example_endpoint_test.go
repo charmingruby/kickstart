@@ -31,7 +31,6 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		s.NoError(err)
 
 		s.Equal("example created successfully", data.Message)
-		s.Equal(http.StatusCreated, data.Code)
 	})
 
 	s.Run("it should be not able to create an invalid example", func() {
@@ -53,6 +52,5 @@ func (s *Suite) Test_CreateExampleEndpoint() {
 		s.NoError(err)
 
 		s.Equal(validation.ErrMinLength("name", "3"), data.Message)
-		s.Equal(http.StatusUnprocessableEntity, data.Code)
 	})
 }

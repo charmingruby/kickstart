@@ -10,7 +10,6 @@ import (
 type GetExampleResponse struct {
 	Message string                      `json:"message"`
 	Data    *presenter.ExamplePresenter `json:"data"`
-	Code    int                         `json:"status_code"`
 }
 
 // GetExample godoc

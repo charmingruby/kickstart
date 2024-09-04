@@ -27,6 +27,8 @@ func (s *Suite) Test_GetExampleEndpoint() {
 
 		s.Equal(http.StatusOK, res.StatusCode)
 
+		fmt.Printf("%v", res.Body)
+
 		data := v1.GetExampleResponse{}
 		err = helper.ParseRequest(&data, res.Body)
 		s.NoError(err)
@@ -52,6 +54,5 @@ func (s *Suite) Test_GetExampleEndpoint() {
 		s.NoError(err)
 
 		s.Equal(custom_err.NewNotFoundErr("example").Error(), data.Message)
-		s.Equal(http.StatusNotFound, data.Code)
 	})
 }
